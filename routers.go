@@ -72,24 +72,42 @@ func setupRoutes() *echo.Echo {
 	r.GET("/", appctl.IndexGET)
 	r.GET("/unauthorized", appctl.HandleUnauthorized)
 	// custom session. Create and end session don't need any authentication, so we don't put veryfication here.
-	rssid := r.Group("/ssid")
-	rssid.GET("/new", appctl.SSIDNew)
-	rssid.GET("/check", appctl.SSIDCheck)
-	rssid.GET("/close", appctl.SSIDClose)
+	ssidRouter(r.Group("/ssid"))
 	// captcha API, no need authentication.
-	rcap := r.Group("/captcha")
-	rcap.GET("/new", appctl.CaptchaNew)
-	rcap.GET("/verify", appctl.CaptchaVer)
-	// user management
-	radm := r.Group("/admin")
-	radm.POST("/login", sysctl.AdminLogin)
-	radm.POST("/changepwd", sysctl.AdminChangePWD)
-	radm.GET("/logout", sysctl.AdminLogout)
+	capRouter(r.Group("/captcha"))
+	// admin management
+	admRouter(r.Group("/admin"))
+	// APIs
+	apiRouter(r.Group("/api"))
 	// message board
 	// Ip tools
-	ript := r.Group("/iptool")
-	ript.GET("/country", appctl.IPTCountry)
+	ipCRouter(r.Group("/iptool"))
 	// Others
 	//r.NoRoute(Handle404)
 	return r
+}
+
+func admRouter(radm *echo.Group) {
+	radm.POST("/login", sysctl.AdminLogin)
+	radm.POST("/changepwd", sysctl.AdminChangePWD)
+	radm.GET("/logout", sysctl.AdminLogout)
+}
+
+func apiRouter(rapi *echo.Group) {
+
+}
+
+func capRouter(rg *echo.Group) {
+	rg.GET("/new", appctl.CaptchaNew)
+	rg.GET("/verify", appctl.CaptchaVer)
+}
+
+func ipCRouter(rg *echo.Group) {
+	rg.GET("/country", appctl.IPTCountry)
+}
+
+func ssidRouter(rg *echo.Group) {
+	rg.GET("/new", appctl.SSIDNew)
+	rg.GET("/check", appctl.SSIDCheck)
+	rg.GET("/close", appctl.SSIDClose)
 }
