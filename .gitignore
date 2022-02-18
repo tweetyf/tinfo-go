@@ -1,3 +1,8 @@
+node_modules
+releases
+*.zip
+tinfo-go
+deploy.sh
 # Binaries for programs and plugins
 *.exe
 *.exe~

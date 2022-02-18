@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=yes, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="referrer" content="never">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="w3.css">
+    <script src="w3.js"></script>
+</head>
+
+
+<body>
+
+    <div class="w3-container w3-center w3-card-4 w3-margin">
+        <h4>Search Country Code </h4>
+        <input class="w3-input" id="ipaddr" type="text" placeholder="IP address">
+        <p><button class="w3-btn w3-blue" onclick="getGeoCountry()">Search</button></p>
+        <div id="countryCode" class="w3-panel w3-pale-green w3-border">
+            <p>{{ip}} Country code: {{country}}</p>
+        </div>
+        <script>
+            document.getElementById("countryCode").style.display = 'none';
+
+            function getGeoCountry() {
+                w3.getHttpObject("/iptool/country?ip=" + document.getElementById("ipaddr").value, myFunction);
+
+                function myFunction(myObject) {
+                    document.getElementById("countryCode").style.display = 'block';
+                    w3.displayObject("countryCode", myObject);
+                }
+            }
+        </script>
+    </div>
+
+    <div class="w3-container w3-card-4 w3-margin">
+        <form action="/message_post" method="POST" target="_self">
+            <h4 class="w3-center">Contact Us</h4>
+            <input class="w3-input " name="first" type="text" placeholder="Name" required>
+            <input class="w3-input " name="email" type="text" placeholder="Email" required>
+            <input class="w3-input " name="phone" type="text" placeholder="Phone">
+            <input class="w3-input" name="message" type="text" placeholder="Message" required>
+            <div class="w3-margin-top">
+                <input class="w3-input" name="cstr" type="text" placeholder="Verify code" required>
+                <span class="w3-text-blue">Time out? Try click picture to get new verify code.</span>
+                <div id="idrecaptcha">
+                    <img id="idrecaptcha_img" src="{{cap_addr}}" onclick="getNewCaptcha();" />
+                    <input class="w3-input" name="cid" type="text" value="{{cid}}" style="display: none;">
+
+                </div>
+                <script>
+                    getNewCaptcha();
+                    function getNewCaptcha() {
+                        w3.getHttpObject("/captcha/new", myFunction);
+
+                        function myFunction(myObject) {
+                            w3.displayObject("idrecaptcha", myObject);
+                        }
+                    }
+                </script>
+            </div>
+
+
+            <p class="w3-center">
+                <button class="w3-button w3-section w3-blue w3-ripple"> Send </button>
+            </p>
+        </form>
+
+    </div>
+    <div class="w3-container">
+        <h4>Show demos:</h4>
+        <span><a class="w3-button w3-blue" target="_blanket" href="/app/doodlergame/doodler.html">Doodler Game
+                demo</a></span>
+        <span><a class="w3-button w3-blue" target="_blanket" href="https://lzspot.info">Personal Blog</a></span>
+    </div>
+
+</body>
+
+</html>

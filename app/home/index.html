@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=yes, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="referrer" content="never">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="w3.css">
+    <script src="w3.js"></script>
+</head>
+
+
+<body>
+    <div class="w3-container w3-center w3-card-4 w3-margin">
+        <h4>Search Country Code </h4>
+        <input class="w3-input" id="ipaddr" type="text" placeholder="IP address">
+        <p><button class="w3-btn w3-blue" onclick="getGeoCountry()">Search</button></p>
+        <div id="countryCode" class="w3-panel w3-pale-green w3-border">
+            <p>{{ip}} Country code: {{country}}</p>
+        </div>
+        <script>
+            document.getElementById("countryCode").style.display = 'none';
+
+            function getGeoCountry() {
+                w3.getHttpObject("/iptool/country?ip=" + document.getElementById("ipaddr").value, myFunction);
+
+                function myFunction(myObject) {
+                    document.getElementById("countryCode").style.display = 'block';
+                    w3.displayObject("countryCode", myObject);
+                }
+            }
+        </script>
+    </div>
+</body>
