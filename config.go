@@ -1,16 +1,10 @@
 package main
 
-// site info
-var SITE_NAME = "Tinfo-go"
-var SITE_VERSION = "0.0.1"
-var SITE_DES = "A better future."
-var SITE_PORT = "8080"
-
-// admins user info
-var ADMIN_UNAME = "admin"
-var ADMIN_PWD = "admin"
-var ADMIN_EMAIL = "admin@example.com"
-var ADMIN_AVATAR = "/static/images/h/145848.png"
+import (
+	"encoding/json"
+	"io/ioutil"
+	"tinfo-go/utils"
+)
 
 // tokens
 var TOKEN_DEFAULT_LIFESPAN int64 = 3600 * 24 * 1
@@ -22,3 +16,30 @@ var SESSION_SECRET = "83aae5ba34c907f46f6d8d"
 var SESSION_NAME = "8966"
 
 var IS_DEV = true
+
+type SiteConf struct {
+	SITE_NAME    string
+	SITE_VERSION string
+	SITE_DESC    string
+	SITE_PORT    string
+	ADMIN_UNAME  string
+	ADMIN_PWD    string
+	ADMIN_EMAIL  string
+	ADMIN_AVATAR string
+}
+
+func initConfig() *SiteConf {
+	//load  from json file
+	var conf = SiteConf{}
+	content, err := ioutil.ReadFile("./site_conf.json")
+	if err != nil {
+		utils.LogFatal("Error when opening file: ", err)
+	}
+
+	err = json.Unmarshal(content, &conf)
+	if err != nil {
+		utils.LogFatal("Error during Unmarshal(): ", err)
+	}
+	utils.LogD("Website conf loaded: %v", conf)
+	return &conf
+}

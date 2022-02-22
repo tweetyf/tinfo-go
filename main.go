@@ -13,7 +13,12 @@ import (
 func install() {
 	// For some initiation work. Currently Dont
 	utils.LogD("Website initiating... installing database")
-	model.AddNewUser(ADMIN_UNAME, ADMIN_PWD, ADMIN_EMAIL, "admin", ADMIN_AVATAR, "")
+	var conf = initConfig()
+	model.AddNewPref("site_name", conf.SITE_NAME)
+	model.AddNewPref("site_version", conf.SITE_VERSION)
+	model.AddNewPref("site_desc", conf.SITE_DESC)
+	model.AddNewPref("site_port", conf.SITE_PORT)
+	model.AddNewUser(conf.ADMIN_UNAME, conf.ADMIN_PWD, conf.ADMIN_EMAIL, "admin", conf.ADMIN_AVATAR, "")
 }
 
 func deleledb() {
@@ -32,10 +37,12 @@ var helpStr = `--install: install.
 func main() {
 	// set log level, if we were in release mod, we just set it to LOG_LEVEL_RELEASE
 	utils.SetLogLevel(utils.LOG_LEVEL_DEBUG)
-	var r = setupRoutes()
+	//TODO: make conf be configurable here.
+	var conf = initConfig()
 	model.InitDatabase()
 	// Start the http server.
-	var port = SITE_PORT
+	var app = setupRoutes()
+	var port = conf.SITE_PORT
 	if len(os.Args) > 1 {
 		switch os.Args[1] {
 		case "--install":
@@ -65,5 +72,5 @@ func main() {
 		}
 	}
 	utils.LogD("Starting server at:" + port)
-	r.Logger.Fatal(r.Start(":" + port))
+	app.Logger.Fatal(app.Start(":" + port))
 }

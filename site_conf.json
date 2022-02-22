@@ -1,0 +1,11 @@
+{
+"site_name"  :"Tinfo-go",
+"site_version"  : "0.0.1",
+"site_desc"  : "A better future.",
+"site_port"  : "8080",
+
+"admin_uname"  : "admin",
+"admin_pwd"  : "admin",
+"admin_email"  : "admin@example.com",
+"admin_avatar"  : "/static/images/h/145848.png"
+}
