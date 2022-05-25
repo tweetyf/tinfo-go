@@ -15,6 +15,6 @@ clean:
 	ls -lah
 
 release:
-	zip -r ./Tinfo-go.release.zip ./tinfo-go ./site_conf.json ./app ./static/
+	zip -r ./Tinfo-go.release.zip ./tinfo-go ./site_conf.json
 	unzip ./Tinfo-go.release.zip -d ./releases/
 	ls -lah

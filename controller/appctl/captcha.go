@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"image/color"
 	"image/png"
-	"io/ioutil"
 	"net/http"
 	"strings"
 	"time"
+	"tinfo-go/app"
 	"tinfo-go/model"
 	"tinfo-go/utils"
 
@@ -26,7 +26,7 @@ func InitCaptchaHandler() {
 			panic(err.Error())
 		}
 	*/
-	fontContenrs, err := ioutil.ReadFile("./static/comic.ttf")
+	fontContenrs, err := app.Static.ReadFile("static/comic.ttf")
 	if err != nil {
 		panic(err.Error())
 	}

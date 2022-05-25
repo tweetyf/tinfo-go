@@ -3,7 +3,9 @@ package main
 import (
 	"html/template"
 	"io"
+	"net/http"
 	"time"
+	"tinfo-go/app"
 	"tinfo-go/controller/appctl"
 	"tinfo-go/controller/sysctl"
 	"tinfo-go/utils"
@@ -65,9 +67,13 @@ func setupRoutes() *echo.Echo {
 	// custom midware to check the ip security function.
 	r.Use(appctl.MID_checkIPCountry)
 	// business logic
-	r.Static("/app", "./app")
+	//r.Static("/app", "./app")
 	r.Static("/static", "./static")
 	r.Static("/favicon.ico", "./static/favicon.ico")
+	// Embed apps here
+
+	staticServer := http.FileServer(http.FS(app.Static))
+	r.GET("/app/*", echo.WrapHandler(http.StripPrefix("/app/", staticServer)))
 	// Home pages
 	r.GET("/", appctl.IndexGET)
 	r.GET("/unauthorized", appctl.HandleUnauthorized)
