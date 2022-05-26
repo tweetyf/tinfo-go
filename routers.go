@@ -69,7 +69,7 @@ func setupRoutes() *echo.Echo {
 	// business logic
 	//r.Static("/app", "./app")
 	r.Static("/static", "./static")
-	r.Static("/favicon.ico", "./static/favicon.ico")
+	r.Static("/favicon.ico", "./app/static/favicon.ico")
 	// Embed apps here
 
 	staticServer := http.FileServer(http.FS(app.Static))
