@@ -6,15 +6,6 @@ import (
 	"tinfo-go/utils"
 )
 
-// tokens
-var TOKEN_DEFAULT_LIFESPAN int64 = 3600 * 24 * 1
-var TOKEN_SESSION_MAXAGE int = 3600 * 24 * 1
-var TOKEN_SESSION_SECRET []byte = []byte("e5ba34c907f46f6d8dae11ece24004f48")
-
-// sessions
-var SESSION_SECRET = "83aae5ba34c907f46f6d8d"
-var SESSION_NAME = "8966"
-
 var IS_DEV = true
 
 type SiteConf struct {
