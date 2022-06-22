@@ -66,6 +66,7 @@ func setupRoutes() *echo.Echo {
 	r.Use(middleware.Recover())
 	// custom midware to check the ip security function.
 	r.Use(appctl.MID_checkIPCountry)
+	r.Use(middleware.CORS())
 	// business logic
 	//r.Static("/app", "./app")
 	r.Static("/static", "./static")

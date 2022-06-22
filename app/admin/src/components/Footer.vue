@@ -13,6 +13,6 @@ export default{
 
 <style scoped>
 .ti-footer {
-background-color: grey;
+background-color: white;
 }
 </style>

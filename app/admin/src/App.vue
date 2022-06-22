@@ -28,21 +28,21 @@ export default {
 
 <template>
   <header>
-    <nav class="w3-bar w3-collapse w3-blue" id="mySidebar"><br>
+    <nav class="w3-bar w3-collapse w3-black" id="mySidebar"><br>
       <div class="w3-bar">
         <button v-for="tab in tabs" :key="tab"
-          :class="['w3-bar-item w3-button w3-hover-none w3-border-blue w3-bottombar w3-hover-border-white w3-padding', { active: currentTab === tab }]"
+          :class="['w3-bar-item w3-button w3-hover-grey w3-border-black w3-bottombar w3-hover-border-white w3-padding', { active: currentTab === tab }]"
           @click="currentTab = tab">
           {{ tab }}
         </button>
         <a href="https://lzspot.info" onclick="" target="_blank"
-          class="w3-bar-item w3-button w3-hover-none w3-border-blue w3-bottombar w3-hover-border-white w3-padding">BLOG</a>
+          class="w3-bar-item w3-button w3-hover-grey w3-border-black w3-bottombar w3-hover-border-white w3-padding">BLOG</a>
       </div>
     </nav>
   </header>
 
   <main>
-    <component :is="currentTab" class="w3-container"></component>
+    <component :is="currentTab" class="w3-container w3-border"></component>
   </main>
 
   <footer>
